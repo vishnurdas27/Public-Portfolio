@@ -1,0 +1,58 @@
+@layer components {
+  .crawler {
+    position: fixed;
+    bottom: 8px;
+    left: -4rem;
+    z-index: 95;
+    padding: 0.3rem;
+    font-size: 1.9rem;
+    line-height: 1;
+    cursor: pointer;
+    user-select: none;
+    animation: crawl var(--dur, 16s) linear forwards;
+  }
+  .crawler span {
+    display: inline-block;
+    animation: scurry 0.24s steps(2) infinite;
+  }
+  @keyframes crawl {
+    to {
+      left: calc(100vw + 4rem);
+    }
+  }
+  @keyframes scurry {
+    50% {
+      transform: translateY(-3px) rotate(6deg);
+    }
+  }
+  .burst {
+    position: fixed;
+    z-index: 300;
+    pointer-events: none;
+    font-size: 1.1rem;
+    line-height: 1;
+    will-change: transform, opacity;
+  }
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 1.4rem;
+    z-index: 320;
+    translate: -50% 0;
+    max-width: min(28rem, calc(100vw - 2rem));
+    padding: 0.7rem 1.1rem;
+    background: var(--ink);
+    color: var(--paper);
+    border: 2.5px solid var(--ink);
+    border-radius: 1rem;
+    box-shadow: 4px 4px 0 var(--tangerine);
+    font-weight: 600;
+    animation: toast-in 0.35s var(--ease-out-expo);
+  }
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+}

@@ -1,0 +1,223 @@
+@layer components {
+  .tape {
+    position: relative;
+    z-index: 3;
+    margin-block: 2.5rem;
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--paper);
+    border-block: 3px solid var(--ink);
+    rotate: -1.4deg;
+    scale: 1.04;
+    box-shadow: 0 6px 0 var(--tangerine);
+  }
+  .tape-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 34s linear infinite;
+  }
+  .tape-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 0.85rem 0.7rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .hero-stage {
+    position: relative;
+    width: min(34rem, 100%);
+    aspect-ratio: 1 / 1.08;
+    margin-inline: auto;
+  }
+  .hero-rays {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    width: 128%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: repeating-conic-gradient(from 0deg, color-mix(in oklab, var(--butter) 60%, transparent) 0 7deg, transparent 7deg 18deg);
+    -webkit-mask-image: radial-gradient(circle, transparent 35%, #000 37%, #000 56%, transparent 66%);
+    mask-image: radial-gradient(circle, transparent 35%, #000 37%, #000 56%, transparent 66%);
+    animation: spin 120s linear infinite;
+  }
+  .hero-sun {
+    position: absolute;
+    left: 50%;
+    top: 44%;
+    width: 86%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: var(--butter);
+    border: 3px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+  .hero-person {
+    position: absolute;
+    left: 50%;
+    bottom: 12%;
+    width: 116%;
+    translate: -50% 0;
+    filter: drop-shadow(6px 6px 0 var(--ink));
+    transform-origin: 50% 100%;
+    animation: person-in 0.9s var(--ease-out-expo) both 0.15s;
+  }
+  .hero-person img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .hero-counter {
+    position: absolute;
+    left: -5%;
+    right: -5%;
+    bottom: 0;
+    height: 19%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: 0 6% 0.9rem;
+    background: var(--ink);
+    border-radius: 1.2rem;
+    box-shadow: 6px 6px 0 var(--tangerine);
+    color: var(--paper);
+  }
+  .hero-counter::before {
+    /* chalk-white trim along the top of the counter */
+    content: "";
+    position: absolute;
+    inset: 0.5rem 0.5rem auto 0.5rem;
+    height: 0;
+    border-top: 2px dashed color-mix(in oklab, var(--paper) 40%, transparent);
+  }
+  @keyframes person-in {
+    from {
+      opacity: 0;
+      transform: translateY(14%) scale(0.96);
+    }
+  }
+
+  /* floating decorations */
+  .float {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes float {
+    50% {
+      transform: translateY(-12px) rotate(var(--r2, 6deg));
+    }
+  }
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes wave {
+    0%,
+    60%,
+    100% {
+      transform: rotate(0);
+    }
+    10%,
+    30% {
+      transform: rotate(16deg);
+    }
+    20%,
+    40% {
+      transform: rotate(-10deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+  }
+  .wave {
+    display: inline-block;
+    transform-origin: 70% 80%;
+    animation: wave 2.6s ease-in-out infinite;
+  }
+
+  /* coffee steam */
+  .steam {
+    stroke: var(--paper);
+    stroke-width: 3;
+    stroke-linecap: round;
+    fill: none;
+    opacity: 0;
+    animation: steam 2.6s ease-in-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  @keyframes steam {
+    0% {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    30% {
+      opacity: 0.95;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-14px);
+    }
+  }
+  .cup-btn {
+    cursor: pointer;
+    transition: transform 0.2s var(--ease-out-expo);
+  }
+  .cup-btn:hover {
+    transform: translateY(-4px) rotate(-3deg);
+  }
+  .cup-btn:active {
+    transform: scale(0.94);
+  }
+  .cup-btn[data-shake="true"] {
+    animation: shake 0.5s;
+  }
+  @keyframes shake {
+    20% {
+      transform: translateX(-4px) rotate(-6deg);
+    }
+    40% {
+      transform: translateX(4px) rotate(6deg);
+    }
+    60% {
+      transform: translateX(-3px) rotate(-4deg);
+    }
+    80% {
+      transform: translateX(3px) rotate(3deg);
+    }
+  }
+  .bubble {
+    position: relative;
+    background: var(--cream);
+    border: 2.5px solid var(--ink);
+    border-radius: 1.1rem;
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+  }
+  .bubble::after {
+    content: "";
+    position: absolute;
+    left: var(--tail, 2rem);
+    top: 100%;
+    width: 0.9rem;
+    height: 0.9rem;
+    background: var(--cream);
+    border-right: 2.5px solid var(--ink);
+    border-bottom: 2.5px solid var(--ink);
+    rotate: 45deg;
+    translate: 0 -0.5rem;
+  }
+}

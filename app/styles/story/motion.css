@@ -1,0 +1,26 @@
+@layer components {
+  @media (prefers-reduced-motion: reduce) {
+    .tape-track,
+    .float,
+    .wave,
+    .hero-rays,
+    .steam,
+    .crawler,
+    .walker-img,
+    .hero-person {
+      animation: none !important;
+    }
+    .steam {
+      opacity: 0.8;
+    }
+    html.js .story [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    html.js .story .ride {
+      transform: none;
+      transition: none;
+    }
+  }
+}

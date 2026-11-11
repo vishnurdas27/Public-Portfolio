@@ -1,0 +1,147 @@
+@layer components {
+  .polaroid {
+    position: relative;
+    margin: 0;
+    padding: 0.7rem 0.7rem 0.3rem;
+    background: var(--cream);
+    border: 2.5px solid var(--ink);
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow);
+  }
+  .polaroid img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 2px solid var(--ink);
+  }
+  .polaroid figcaption {
+    padding: 0.5rem 0 0.35rem;
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 1.1;
+  }
+  .polaroid:hover {
+    rotate: 0deg;
+    translate: 0 -6px;
+    z-index: 4;
+  }
+  html.js .story .polaroid {
+    transition:
+      opacity 0.7s var(--ease-out-expo),
+      transform 0.8s var(--ease-out-expo),
+      rotate 0.3s var(--ease-out-expo),
+      translate 0.3s var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0s), var(--reveal-delay, 0s), 0s, 0s;
+  }
+
+  .note {
+    padding: 0.85rem 1.1rem 1rem;
+    background: var(--butter);
+    border: 2.5px solid var(--ink);
+    border-radius: 0.4rem;
+    box-shadow: var(--shadow-sm);
+    color: var(--ink);
+  }
+
+  /* the bike band: the sticker rides in from the left edge of the screen */
+  .life-band {
+    position: relative;
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    align-items: end;
+  }
+  .life-bike {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: min(30rem, 88vw);
+    padding-bottom: 0.9rem;
+  }
+  .life-bike::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.7rem;
+    width: 100vw;
+    border-top: 4px dashed color-mix(in oklab, var(--ink) 30%, transparent);
+  }
+  .life-bike img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(6px 6px 0 var(--ink));
+  }
+  .life-bubble {
+    align-self: flex-end;
+    max-width: 14rem;
+    margin: 0 6% 1rem 0;
+    padding: 0.45rem 0.9rem;
+    font-size: 1.5rem;
+    line-height: 1.1;
+  }
+  /* the wrapper is what the reveal observer watches: the image itself starts off-screen */
+  html.js .story .ride {
+    transform: translateX(-110%);
+    transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  html.js .story .life-bike.is-in .ride {
+    transform: none;
+  }
+
+  .life-band-main {
+    display: grid;
+    gap: 2.2rem;
+    justify-items: center;
+    padding-inline: var(--gutter);
+  }
+  .life-golden {
+    width: min(100%, 17rem);
+  }
+  .life-bridge {
+    width: min(100%, 19rem);
+  }
+  .life-sun {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: 112%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: var(--tangerine);
+    border: 3px solid var(--ink);
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+
+  @media (min-width: 900px) {
+    .life-band {
+      grid-template-columns: clamp(20rem, 38vw, 34rem) minmax(0, 1fr);
+      gap: 2rem;
+    }
+    .life-bike {
+      width: 100%;
+    }
+    .life-band-main {
+      grid-template-columns: repeat(2, minmax(0, 17rem));
+      grid-template-areas:
+        "note note"
+        "golden bridge";
+      justify-content: center;
+      align-items: start;
+      column-gap: 2.5rem;
+      row-gap: 1.8rem;
+    }
+    .life-band-main > .note {
+      grid-area: note;
+      justify-self: start;
+    }
+    .life-golden {
+      grid-area: golden;
+    }
+    .life-bridge {
+      grid-area: bridge;
+      margin-top: 3.5rem;
+    }
+  }
+}

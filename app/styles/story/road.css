@@ -1,0 +1,93 @@
+@layer components {
+  .road {
+    position: relative;
+  }
+  .road-line,
+  .road-fill {
+    position: absolute;
+    top: 0;
+    left: 1.2rem;
+    width: 0;
+    translate: -2px 0;
+  }
+  .road-line {
+    bottom: 0;
+    border-left: 4px dashed color-mix(in oklab, var(--ink) 30%, transparent);
+  }
+  .road-fill {
+    height: 0;
+    border-left: 4px solid var(--ink);
+  }
+  .walker {
+    position: absolute;
+    top: 0;
+    left: 1.2rem;
+    z-index: 6;
+    width: 4.6rem;
+    margin-left: -2.3rem;
+    will-change: transform;
+    pointer-events: none;
+  }
+  .walker-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(4px 4px 0 var(--ink));
+    transform-origin: 50% 100%;
+  }
+  .walker[data-walking="true"] .walker-img {
+    animation: walk 0.5s ease-in-out infinite;
+  }
+  .walker[data-walking="false"] .walker-img {
+    animation: breathe 3s ease-in-out infinite;
+  }
+  @keyframes walk {
+    0%,
+    100% {
+      transform: rotate(-3deg) translateY(0);
+    }
+    25% {
+      transform: rotate(0) translateY(-7px);
+    }
+    50% {
+      transform: rotate(3deg) translateY(0);
+    }
+    75% {
+      transform: rotate(0) translateY(-7px);
+    }
+  }
+  @keyframes breathe {
+    50% {
+      transform: scaleY(1.015) translateY(-1px);
+    }
+  }
+  .road-stop {
+    position: absolute;
+    top: 2.3rem;
+    left: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-left: -0.75rem;
+    border: 3px solid var(--ink);
+    border-radius: 50%;
+    background: var(--cream);
+    transition:
+      background-color 0.3s,
+      transform 0.3s var(--ease-out-expo);
+  }
+  .scene[data-active="true"] .road-stop,
+  .scene.is-in .road-stop {
+    background: var(--tone, var(--butter));
+  }
+  .scene[data-active="true"] .road-stop {
+    transform: scale(1.35);
+  }
+  @media (min-width: 900px) {
+    .road-line,
+    .road-fill,
+    .walker,
+    .road-stop {
+      left: 50%;
+    }
+  }
+}

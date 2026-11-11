@@ -1,0 +1,15 @@
+@import "@fontsource-variable/fraunces/soft.css";
+@import "@fontsource-variable/bricolage-grotesque/wght.css";
+@import "@fontsource/caveat/latin-700.css";
+
+@import "./base.css";
+@import "./components.css";
+@import "./header.css";
+@import "./hero.css";
+@import "./road.css";
+@import "./menu.css";
+@import "./life.css";
+@import "./games.css";
+@import "./fun.css";
+@import "./palette.css";
+@import "./motion.css";

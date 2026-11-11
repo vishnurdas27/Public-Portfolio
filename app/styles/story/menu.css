@@ -1,0 +1,31 @@
+@layer components {
+  .chalkboard {
+    position: relative;
+    background: var(--ink);
+    color: var(--paper);
+    border: 3px solid var(--ink);
+    border-radius: 1.8rem;
+    box-shadow: 8px 8px 0 var(--tangerine);
+    background-image:
+      radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.05), transparent 40%),
+      radial-gradient(circle at 80% 85%, rgba(255, 255, 255, 0.04), transparent 45%);
+    outline: 6px solid var(--espresso);
+    outline-offset: -3px;
+  }
+  .menu-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.28rem 0;
+  }
+  .menu-row::after {
+    content: "";
+    order: 1;
+    flex: 1;
+    border-bottom: 2px dotted color-mix(in oklab, var(--paper) 35%, transparent);
+    translate: 0 -0.28em;
+  }
+  .menu-row > :last-child {
+    order: 2;
+  }
+}

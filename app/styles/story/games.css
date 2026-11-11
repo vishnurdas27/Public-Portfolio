@@ -1,0 +1,122 @@
+@layer components {
+  .game-card {
+    background: var(--cream);
+    border: 2.5px solid var(--ink);
+    border-radius: 1.4rem;
+    box-shadow: var(--shadow);
+  }
+  .game-tab {
+    padding: 0.55rem 1.1rem;
+    border: 2.5px solid var(--ink);
+    border-radius: 999px;
+    background: var(--cream);
+    font-weight: 700;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition:
+      background-color 0.2s,
+      transform 0.15s;
+  }
+  .game-tab:hover {
+    transform: translateY(-2px);
+  }
+  .game-tab[aria-selected="true"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .hole {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 50% 50% 1rem 1rem / 38% 38% 1rem 1rem;
+    border: 2.5px solid var(--ink);
+    background: radial-gradient(ellipse at 50% 85%, var(--espresso) 0 52%, var(--latte) 54%);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .hole .critter {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    transform: translateY(105%);
+    transition: transform 0.12s ease-out;
+  }
+  .hole[data-up="true"] .critter {
+    transform: translateY(8%);
+  }
+  .hole[data-hit="true"] .critter {
+    transform: translateY(105%) scale(0.5);
+  }
+  .hole .splat {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: var(--font-hand);
+    font-size: 1.6rem;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .hole[data-hit="true"] .splat {
+    animation: pop 0.5s ease-out;
+  }
+  @keyframes pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    30% {
+      opacity: 1;
+      transform: scale(1.25);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1) translateY(-18px);
+    }
+  }
+  .mcard {
+    position: relative;
+    aspect-ratio: 1;
+    perspective: 700px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .mcard-inner {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+  .mcard[data-open="true"] .mcard-inner {
+    transform: rotateY(180deg);
+  }
+  .mcard-face {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border: 2.5px solid var(--ink);
+    border-radius: 1rem;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    font-weight: 800;
+  }
+  .mcard-back {
+    background: var(--ink);
+    color: var(--butter);
+    font-size: 1.6rem;
+  }
+  .mcard-front {
+    transform: rotateY(180deg);
+    background: var(--tone, var(--butter));
+    box-shadow: var(--shadow-sm);
+    font-size: clamp(0.85rem, 2.2vw, 1.1rem);
+    text-align: center;
+    padding: 0.25rem;
+  }
+  .mcard[data-done="true"] .mcard-front {
+    background: var(--leaf);
+  }
+}

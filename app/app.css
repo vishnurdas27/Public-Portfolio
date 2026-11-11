@@ -1,0 +1,396 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist/wght.css";
+@import "@fontsource-variable/geist-mono/wght.css";
+@import "@fontsource/instrument-serif/latin-400.css";
+@import "@fontsource/instrument-serif/latin-400-italic.css";
+
+/* dark: opt-in through the saved theme choice; first visits use light. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .scope-dark, .scope-dark *));
+
+@theme inline {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, "Times New Roman", serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, "Times New Roman", serif;
+  --font-body: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-cream: var(--cream);
+  --color-butter: var(--butter);
+  --color-tangerine: var(--tangerine);
+  --color-coral: var(--coral);
+  --color-leaf: var(--leaf);
+  --color-sky: var(--sky);
+  --color-latte: var(--latte);
+  --color-espresso: var(--espresso);
+
+  --color-layer-interface: var(--layer-interface);
+  --color-layer-logic: var(--layer-logic);
+  --color-layer-data: var(--layer-data);
+  --color-layer-cloud: var(--layer-cloud);
+
+  --breakpoint-xs: 30rem;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+:root {
+  /* story-side palette; the themes below only remap the semantic tokens */
+  --ink: #14100d;
+  --paper: #fff3dc;
+  --cream: #fffbf2;
+  --butter: #ffd15c;
+  --tangerine: #ff8f3f;
+  --coral: #ff6b5a;
+  --leaf: #78c47a;
+  --sky: #8fd0f2;
+  --latte: #d9a66f;
+  --espresso: #3b2418;
+
+  color-scheme: light;
+  --bg: #f6f5f1;
+  --surface: #ffffff;
+  --surface-2: #eeece6;
+  --fg: #0e1016;
+  --muted: #565c6c;
+  --line: rgba(14, 16, 22, 0.12);
+  /* burnt orange, passes AA on the page and on white */
+  --accent: #b4510a;
+  --accent-fg: #ffffff;
+  --accent-soft: rgba(180, 81, 10, 0.1);
+
+  --layer-interface: #0891b2;
+  --layer-logic: #6d5ef0;
+  --layer-data: #c2610a;
+  --layer-cloud: #059669;
+  /* darker twins for small text on light surfaces */
+  --layer-interface-text: #0e7490;
+  --layer-logic-text: #5b4be0;
+  --layer-data-text: #a8520a;
+  --layer-cloud-text: #047857;
+}
+
+[data-theme="dark"],
+.scope-dark {
+  color-scheme: dark;
+  --bg: #07080c;
+  --surface: #0e1118;
+  --surface-2: #151a26;
+  --fg: #e9ecf3;
+  --muted: #959cb0;
+  --line: rgba(255, 255, 255, 0.1);
+  --accent: #ff9a4d;
+  --accent-fg: #1a0d03;
+  --accent-soft: rgba(255, 154, 77, 0.13);
+
+  --layer-interface: #4fd8ff;
+  --layer-logic: #9a8cff;
+  --layer-data: #ffb84d;
+  --layer-cloud: #4cf0b2;
+  --layer-interface-text: var(--layer-interface);
+  --layer-logic-text: var(--layer-logic);
+  --layer-data-text: var(--layer-data);
+  --layer-cloud-text: var(--layer-cloud);
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5.5rem;
+}
+
+html:not([data-theme="story"]) {
+  scroll-padding-top: 8.5rem;
+}
+
+.pro-section-nav {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 2.5rem);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.65rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 550;
+    line-height: 1;
+    white-space: nowrap;
+    border: 1px solid transparent;
+    transition:
+      background-color 0.25s var(--ease-out-expo),
+      color 0.25s var(--ease-out-expo),
+      border-color 0.25s var(--ease-out-expo),
+      transform 0.25s var(--ease-out-expo);
+  }
+  .btn:active {
+    transform: scale(0.97);
+  }
+  .btn-primary {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .btn-primary:hover {
+    background: var(--accent);
+    color: var(--accent-fg);
+  }
+  .btn-ghost {
+    border-color: var(--line);
+    background: transparent;
+    color: var(--fg);
+  }
+  .btn-ghost:hover {
+    border-color: var(--fg);
+    background: var(--surface);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.28rem 0.65rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    line-height: 1.2;
+    color: var(--fg);
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 1.25rem;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size 0.4s var(--ease-out-expo);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 200;
+    padding: 0.6rem 1rem;
+    border-radius: 999px;
+    background: var(--fg);
+    color: var(--bg);
+    font-size: 0.85rem;
+    font-weight: 600;
+    transform: translateY(-200%);
+    transition: transform 0.2s var(--ease-out-expo);
+  }
+  .skip-link:focus {
+    transform: translateY(0);
+  }
+}
+
+@utility text-balance-pretty {
+  text-wrap: balance;
+}
+
+/* accent helper: set data-layer on an element, then use var(--layer) */
+[data-layer="interface"] {
+  --layer: var(--layer-interface);
+  --layer-text: var(--layer-interface-text);
+}
+[data-layer="logic"] {
+  --layer: var(--layer-logic);
+  --layer-text: var(--layer-logic-text);
+}
+[data-layer="data"] {
+  --layer: var(--layer-data);
+  --layer-text: var(--layer-data-text);
+}
+[data-layer="cloud"] {
+  --layer: var(--layer-cloud);
+  --layer-text: var(--layer-cloud-text);
+}
+
+.arch-flow {
+  animation: arch-flow 1.2s linear infinite;
+}
+@keyframes arch-flow {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+/* mode-switch view transition */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation: vt-out 0.35s var(--ease-in-out-soft) both;
+  }
+  ::view-transition-new(root) {
+    animation: vt-in 0.5s var(--ease-out-expo) both;
+  }
+}
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* print: /pro becomes a compact résumé */
+@media print {
+  :root,
+  [data-theme="dark"] {
+    --bg: #fff;
+    --surface: #fff;
+    --surface-2: #f4f4f4;
+    --fg: #000;
+    --muted: #333;
+    --line: #bbb;
+    --accent: #000;
+    --accent-fg: #fff;
+    color-scheme: light;
+  }
+  @page {
+    margin: 12mm;
+  }
+  /* everything is in rem, so a smaller root shrinks the whole page */
+  html {
+    font-size: 10.5px;
+  }
+  body {
+    font-size: 10pt;
+  }
+  .pro-section {
+    padding-block: 10pt !important;
+    border-top-width: 0.5pt !important;
+  }
+  .pro-section > .container-x {
+    row-gap: 6pt !important;
+  }
+  .pro-hero-inner {
+    padding-block: 8pt !important;
+    gap: 12pt !important;
+  }
+  .pro-name {
+    font-size: 28pt !important;
+    letter-spacing: -0.03em !important;
+  }
+  .pro-role {
+    font-size: 15pt !important;
+  }
+  .pro-h2 {
+    font-size: 15pt !important;
+    max-width: none !important;
+  }
+  .pro-fact {
+    font-size: 22pt !important;
+  }
+  .pro-contact-title {
+    font-size: 20pt !important;
+    max-width: none !important;
+  }
+  .card {
+    box-shadow: none !important;
+    padding: 8pt !important;
+    border-radius: 6pt !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-avoid-break {
+    break-inside: avoid;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+.print-only {
+  display: none;
+}
